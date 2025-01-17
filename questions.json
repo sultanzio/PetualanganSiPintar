@@ -1,0 +1,85 @@
+{
+    "level1": [{
+            "question": "Cocokkan kata 'Kucing' dengan gambarnya",
+            "answer": "assets/kucing.png"
+        },
+        {
+            "question": "Cocokkan kata 'Sepeda' dengan gambarnya",
+            "answer": "assets/sepeda.png"
+        },
+        {
+            "question": "Cocokkan kata 'Bintang' dengan gambarnya",
+            "answer": "assets/bintang.png"
+        },
+        {
+            "question": "Cocokkan kata 'Bebek' dengan gambarnya",
+            "answer": "assets/bebek.png"
+        },
+        {
+            "question": "Cocokkan kata 'Mobil' dengan gambarnya",
+            "answer": "assets/mobil.png"
+        }
+    ],
+    "level2": [{
+            "question": "Siapa pahlawan Indonesia yang berjuang di Aceh?",
+            "options": ["Cut Nyak Dien", "RA Kartini", "Patimura"],
+            "correct_index": 0,
+            "hint": "Beliau adalah pahlawan wanita di Aceh."
+        },
+        {
+            "question": "Apa makanan tradisional dari Yogyakarta?",
+            "options": ["Pempek", "Gudeg", "Rendang"],
+            "correct_index": 1,
+            "hint": "Terbuat dari nangka muda dan santan."
+        },
+        {
+            "question": "Fenomena alam di mana terjadi getaran di permukaan bumi?",
+            "options": ["Banjir", "Gempa bumi", "Kebakaran hutan"],
+            "correct_index": 1,
+            "hint": "Pusat getarannya disebut episentrum."
+        },
+        {
+            "question": "Pahlawan wanita yang berasal dari Jawa Tengah?",
+            "options": ["RA Kartini", "Dewi Sartika", "Tjoet Nyak Meutia"],
+            "correct_index": 0,
+            "hint": "Diperingati setiap 21 April."
+        },
+        {
+            "question": "Rendang berasal dari daerah?",
+            "options": ["Sumatera Barat", "Jawa Timur", "Sulawesi Selatan"],
+            "correct_index": 0,
+            "hint": "Masakan daging khas Minang."
+        }
+    ],
+    "level3": [{
+            "question": "Planet merah dalam tata surya adalah?",
+            "options": ["Mars", "Venus", "Saturnus"],
+            "correct_index": 0,
+            "hint": "Planet ini dinamai dewa perang Romawi."
+        },
+        {
+            "question": "Candi Buddha terbesar di Indonesia?",
+            "options": ["Borobudur", "Prambanan", "Mendut"],
+            "correct_index": 0,
+            "hint": "Terletak di Magelang, Jawa Tengah."
+        },
+        {
+            "question": "Hewan tercepat di darat adalah?",
+            "options": ["Cheetah", "Singa", "Kuda"],
+            "correct_index": 0,
+            "hint": "Bisa mencapai 120 km/jam."
+        },
+        {
+            "question": "Sungai terpanjang di dunia adalah?",
+            "options": ["Nil", "Amazon", "Yangtze"],
+            "correct_index": 0,
+            "hint": "Terletak di benua Afrika."
+        },
+        {
+            "question": "Benua terbesar di bumi adalah?",
+            "options": ["Asia", "Afrika", "Amerika"],
+            "correct_index": 0,
+            "hint": "Wilayahnya mencakup Rusia, Tiongkok, India."
+        }
+    ]
+}

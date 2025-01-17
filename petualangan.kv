@@ -1,0 +1,593 @@
+#:kivy 2.1.0
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import Animation kivy.animation.Animation
+
+<HintLabel@Label>:
+    text: ""
+    font_size: '16sp'
+    font_name: 'assets/fun_font.ttf'
+    color: 1,0,0,1
+    size_hint: None, None
+    halign: 'center'
+    valign: 'middle'
+    text_size: self.size
+    canvas.before:
+        Color:
+            rgba: 1,1,1,0.8
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'assets/hint_bg.png'
+
+# ----------------------
+#  CUSTOM IMAGE BUTTONS
+# ----------------------
+<NewGameButton@ButtonBehavior+Image>:
+    source: 'assets/button_start_normal.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(180), dp(50)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.85
+        Animation(opacity=1, d=0.1).start(self)
+        self.source = 'assets/button_start_pressed.png'
+    on_release:
+        self.source = 'assets/button_start_normal.png'
+
+<ContinueButton@ButtonBehavior+Image>:
+    source: 'assets/button_continue_normal.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(180), dp(50)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.85
+        Animation(opacity=1, d=0.1).start(self)
+        self.source = 'assets/button_continue_pressed.png'
+    on_release:
+        self.source = 'assets/button_continue_normal.png'
+
+<SettingsMenuButton@ButtonBehavior+Image>:
+    source: 'assets/button_settings_normal.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(180), dp(50)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.85
+        Animation(opacity=1, d=0.1).start(self)
+        self.source = 'assets/button_settings_pressed.png'
+    on_release:
+        self.source = 'assets/button_settings_normal.png'
+
+<AboutMenuButton@ButtonBehavior+Image>:
+    source: 'assets/button_about_normal.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(180), dp(50)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.85
+        Animation(opacity=1, d=0.1).start(self)
+        self.source = 'assets/button_about_pressed.png'
+    on_release:
+        self.source = 'assets/button_about_normal.png'
+
+<LevelButton@ButtonBehavior+Image>:
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(160), dp(45)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.8
+    on_release:
+        self.opacity = 1
+
+<ExitMenuButton@ButtonBehavior+Image>:
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(300), dp(60)
+    source: 'assets/button_exitmenu.png'
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.7
+    on_release:
+        self.opacity = 1
+
+<BackButton@ButtonBehavior+Image>:
+    source: 'assets/button_back.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(150), dp(50)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.8
+    on_release:
+        self.opacity = 1
+
+<ExitButton@ButtonBehavior+Image>:
+    source: 'assets/button_exit.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(150), dp(50)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.8
+    on_release:
+        self.opacity = 1
+
+<ResetButton@ButtonBehavior+Image>:
+    source: 'assets/button_reset.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(150), dp(50)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.8
+    on_release:
+        self.opacity = 1
+
+<CheckButton@ButtonBehavior+Image>:
+    source: 'assets/button_check.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(150), dp(50)
+    on_press:
+        app.play_click_sound()
+        self.opacity = 0.8
+    on_release:
+        self.opacity = 1
+
+<ButtonSolusi@ButtonBehavior+Image>:
+    source: 'assets/solusi.png'
+    allow_stretch: True
+    keep_ratio: False
+    size_hint: None, None
+    size: dp(150), dp(50)
+    on_release: app.show_puzzle_solution()
+
+<AnimatedCharacter@Widget>:
+    size_hint: None, None
+    size: dp(200), dp(200)
+    canvas:
+        PushMatrix
+        Translate:
+            x: self.x
+            y: self.y
+        Rotate:
+            angle: self.angle
+            origin: self.center
+        Rectangle:
+            source: self.source_image if hasattr(self, 'source_image') else 'assets/character_idle.png'
+            size: self.size
+        PopMatrix
+    angle: 0
+    on_parent:
+        anim = Animation(angle=10, duration=0.5) + Animation(angle=-10, duration=0.5)
+        anim.repeat = True
+        anim.start(self)
+
+<ScoreLabel@Label>:
+    text: "Skor: 0"
+    font_size: '20sp'
+    font_name: 'assets/fun_font.ttf'
+    color: 1,1,1,1
+    size_hint: None, None
+    size: dp(200), dp(48)
+    halign: 'center'
+    valign: 'middle'
+    text_size: self.size
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            source: 'assets/score_bg.png'
+            pos: self.pos
+            size: self.size
+
+<TimeLabel@Label>:
+    text: "Waktu: 0"
+    font_size: '18sp'
+    font_name: 'assets/fun_font.ttf'
+    color: 1,1,1,1
+    size_hint: None, None
+    size: dp(180), dp(50)
+    halign: 'center'
+    valign: 'middle'
+    text_size: self.size
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            source: 'assets/timer_bg.png'
+            pos: self.pos
+            size: self.size
+
+<MainMenuScreen>:
+    name: 'main_menu'
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'assets/background.png'
+        Image:
+            source: 'assets/title_logo.png'
+            allow_stretch: True
+            keep_ratio: True
+            size_hint: None, None
+            width: dp(400)
+            height: dp(150)
+            pos_hint: {'center_x': 0.5, 'top': 0.95}
+        AnimatedCharacter:
+            source_image: 'assets/character_idle.png'
+            pos_hint: {'center_x':0.2, 'center_y':0.4}
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None
+            width: dp(200)
+            height: dp(250)
+            pos_hint: {'center_x':0.7, 'center_y':0.5}
+            spacing: dp(15)
+            NewGameButton:
+                on_release: app.start_new_game()
+            ContinueButton:
+                on_release: app.handle_continue_game()
+            SettingsMenuButton:
+                on_release: app.open_settings()
+            AboutMenuButton:
+                on_release: app.show_about()
+
+<LevelSelectionScreen>:
+    name: 'level_selection'
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'assets/background.png'
+        Label:
+            text: "PILIH LEVEL"
+            font_size: '30sp'
+            font_name: 'assets/fun_font.ttf'
+            color: 1,1,1,1
+            size_hint: None, None
+            size: dp(250), dp(50)
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+            pos_hint: {'center_x': 0.5, 'top': 0.9}
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (None, None)
+            width: dp(600)
+            height: dp(70)
+            spacing: dp(20)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            LevelButton:
+                source: 'assets/button_level1.png'
+                on_release: app.go_to_level(1)
+            LevelButton:
+                source: 'assets/button_level2.png'
+                on_release: app.go_to_level(2)
+            LevelButton:
+                source: 'assets/button_level3.png'
+                on_release: app.go_to_level(3)
+        ExitMenuButton:
+            pos_hint: {'center_x': 0.5, 'y': 0.1}
+            on_release: app.go_to_main_menu()
+
+<SettingsScreen>:
+    name: 'settings'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(10)
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'assets/background.png'
+        Label:
+            text: "PENGATURAN"
+            font_size: '24sp'
+            font_name: 'assets/fun_font.ttf'
+            color: 1,1,1,1
+            size_hint_y: None
+            height: dp(50)
+        GridLayout:
+            cols: 2
+            row_default_height: dp(40)
+            row_force_default: True
+            spacing: dp(10)
+            Label:
+                text: "Volume Suara"
+                color: 1,1,1,1
+                font_name: 'assets/fun_font.ttf'
+            Slider:
+                id: volume_sfx_slider
+                min: 0
+                max: 1
+                value: 0.5
+            Label:
+                text: "Volume Musik"
+                color: 1,1,1,1
+                font_name: 'assets/fun_font.ttf'
+            Slider:
+                id: volume_music_slider
+                min: 0
+                max: 1
+                value: 0.5
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            spacing: dp(10)
+            Button:
+                text: "Simpan"
+                font_name: 'assets/fun_font.ttf'
+                on_release: app.save_settings()
+            Button:
+                text: "Batal"
+                font_name: 'assets/fun_font.ttf'
+                on_release: app.go_to_main_menu()
+
+<AboutScreen>:
+    name: 'about'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(10)
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'assets/background.png'
+        Label:
+            text: "Tentang Game"
+            font_size: '24sp'
+            font_name: 'assets/fun_font.ttf'
+            color: 1,1,1,1
+            size_hint_y: None
+            height: dp(40)
+        ScrollView:
+            Label:
+                id: about_text
+                text: "Petualangan Si Pintar..."
+                font_size: '18sp'
+                font_name: 'assets/fun_font.ttf'
+                color: 1,1,1,1
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+        Button:
+            text: "Kembali ke Menu Utama"
+            size_hint_y: None
+            height: dp(50)
+            font_size: '18sp'
+            font_name: 'assets/fun_font.ttf'
+            on_release: app.go_to_main_menu()
+
+<PuzzleScreen>:
+    name: 'puzzle'
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'assets/background.png'
+        ScoreLabel:
+            id: puzzle_score_label
+            pos_hint: {'x': 0.02, 'top': 0.95}
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (0.9, 0.6)
+            spacing: dp(15)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: dp(10)
+                size_hint_x: 0.5
+                Label:
+                    id: puzzle_instruction_label
+                    text: "Susun puzzle di bawah"
+                    font_size: '20sp'
+                    font_name: 'assets/fun_font.ttf'
+                    size_hint_y: None
+                    height: dp(40)
+                    color: 1,1,1,1
+                GridLayout:
+                    id: puzzle_grid
+                    cols: 3
+                    row_default_height: dp(100)
+                    row_force_default: True
+                    col_default_width: dp(100)
+                    col_force_default: True
+                    spacing: dp(2)
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.5
+                spacing: dp(10)
+                Label:
+                    text: "Referensi"
+                    font_size: '20sp'
+                    font_name: 'assets/fun_font.ttf'
+                    size_hint_y: None
+                    height: dp(40)
+                    color: 1,1,1,1
+                Image:
+                    source: 'assets/kucing.png'
+                    allow_stretch: True
+                    keep_ratio: True
+                    size_hint_y: None
+                    height: dp(310)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (None, None)
+            width: dp(750)
+            height: dp(50)
+            spacing: dp(15)
+            pos_hint: {'center_x': 0.5, 'y': 0.05}
+            BackButton:
+                on_release: app.go_to_level_selection()
+            ResetButton:
+                on_release: app.reset_puzzle()
+            CheckButton:
+                on_release: app.check_puzzle_solved()
+            ExitButton:
+                on_release: app.go_to_main_menu()
+            ButtonSolusi:
+
+<MultipleChoiceScreen>:
+    name: 'multiple_choice'
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'assets/background.png'
+        ScoreLabel:
+            id: score_label
+            pos_hint: {'x': 0.02, 'top': 0.95}
+        TimeLabel:
+            id: timer_label
+            text: "Waktu: 20"
+            pos_hint: {'right': 0.98, 'top': 0.95}
+        Label:
+            id: question_label
+            text: "Pertanyaan"
+            font_size: '20sp'
+            font_name: 'assets/fun_font.ttf'
+            color: 0,0,0,1
+            size_hint: None, None
+            size: dp(600), dp(60)
+            pos_hint: {'center_x': 0.5, 'top': 0.8}
+            canvas.before:
+                Color:
+                    rgba: 1,1,1,1
+                Rectangle:
+                    source: 'assets/question_bg.png'
+                    pos: self.pos
+                    size: self.size
+        GridLayout:
+            id: options_layout
+            cols: 1
+            spacing: dp(5)
+            size_hint: None, None
+            width: dp(400)
+            height: dp(240)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+        HintLabel:
+            id: mc_hint_label
+            size_hint: None, None
+            size: dp(400), dp(40)
+            pos_hint: {'center_x': 0.5, 'y': 0.3}
+            text: ""
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: None, None
+            width: dp(420)
+            height: dp(50)
+            spacing: dp(15)
+            pos_hint: {'center_x': 0.5, 'y': 0.05}
+            BackButton:
+                on_release: app.go_to_level_selection()
+            ExitButton:
+                on_release: app.go_to_main_menu()
+
+<LevelBossScreen>:
+    name: 'boss_level'
+    FloatLayout:
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'assets/background.png'
+        ScoreLabel:
+            id: boss_score_label
+            pos_hint: {'x': 0.02, 'top': 0.95}
+        TimeLabel:
+            id: boss_timer_label
+            text: "Waktu: 20"
+            pos_hint: {'right': 0.98, 'top': 0.95}
+        Label:
+            text: "PERTARUNGAN BOS!"
+            font_size: '24sp'
+            font_name: 'assets/fun_font.ttf'
+            color: 1,0,0,1
+            size_hint: None, None
+            size: dp(300), dp(50)
+            pos_hint: {'center_x': 0.5, 'top': 0.9}
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+        Label:
+            id: boss_question_label
+            text: "Pertanyaan Bos"
+            font_size: '20sp'
+            font_name: 'assets/fun_font.ttf'
+            color: 0,0,0,1
+            size_hint: None, None
+            size: dp(400), dp(60)
+            pos_hint: {'center_x': 0.5, 'top': 0.75}
+            canvas.before:
+                Color:
+                    rgba: 1,1,1,1
+                Rectangle:
+                    source: 'assets/question_bg.png'
+                    pos: self.pos
+                    size: self.size
+        GridLayout:
+            id: boss_options_layout
+            cols: 1
+            spacing: dp(5)
+            size_hint: None, None
+            width: dp(400)
+            height: dp(240)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+        HintLabel:
+            id: boss_hint_label
+            size_hint: None, None
+            size: dp(300), dp(40)
+            pos_hint: {'center_x': 0.5, 'top': 0.38}
+            text: ""
+        ProgressBar:
+            id: boss_health_bar
+            max: 100
+            value: 100
+            size_hint: None, None
+            width: dp(300)
+            height: dp(20)
+            pos_hint: {'center_x': 0.5, 'top': 0.33}
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: None, None
+            width: dp(420)
+            height: dp(50)
+            spacing: dp(15)
+            pos_hint: {'center_x': 0.5, 'y': 0.05}
+            BackButton:
+                on_release: app.go_to_level_selection()
+            ExitButton:
+                on_release: app.go_to_main_menu()
+
+ScreenManager:
+    id: screen_manager
+    transition: FadeTransition()
+    MainMenuScreen:
+    LevelSelectionScreen:
+    SettingsScreen:
+    AboutScreen:
+    PuzzleScreen:
+    MultipleChoiceScreen:
+    LevelBossScreen:
